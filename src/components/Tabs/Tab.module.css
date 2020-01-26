@@ -1,0 +1,48 @@
+.container {
+  height: 100%;
+  box-sizing: border-box;
+  background: #1c1c1c;
+  color: #bbb;
+  display: flex;
+  flex-direction: column;
+}
+
+.tab {
+  padding: 0.5rem 1rem 0.5rem 1.5rem;
+  cursor: pointer;
+  box-sizing: border-box;
+  border-right: 2px solid #333333;
+}
+
+.tab.active {
+  background: #1c1c1c;
+  outline: 2px solid #1c1c1c;
+  border-right: 2px solid #1c1c1c;
+}
+
+.tabs {
+  display: flex;
+  background: #282828;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+  border-bottom: 2px solid #000;
+}
+
+.content {
+  margin: 2rem;
+  display: flex;
+  flex-grow: 1;
+  box-sizing: border-box;
+}
+
+.closeTab {
+  margin-left: 1rem;
+  vertical-align: top;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1rem;
+  color: #adadad;
+}
