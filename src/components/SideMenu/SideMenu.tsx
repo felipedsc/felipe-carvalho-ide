@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react';
 import styles from './SideMenu.module.css';
 
 export interface Section {
@@ -9,12 +9,14 @@ export interface Section {
 
 export interface SectionLink {
     display: string;
-    path?: string;
+    key: string;
+    component?: JSX.Element;
     action?: () => void;
 }
 
 interface SideMenuProps {
     menu: Section[];
+    onTabSelected: (link: SectionLink) => void;
 }
 
 const SideMenu: React.FC<SideMenuProps> = (props) => {
@@ -25,7 +27,7 @@ const SideMenu: React.FC<SideMenuProps> = (props) => {
         newMenu.forEach(m => m.open = !!m.open);
 
         setMenu(newMenu);
-    }, [props]);
+    }, [props.menu]);
 
     const toggleSection = (index: number) => {
         const newMenu = [...menu];
@@ -52,14 +54,18 @@ const SideMenu: React.FC<SideMenuProps> = (props) => {
                         <ul>
                             {section.links.map((link, linkIndex) => (
                                 <li key={linkIndex}>
-                                    <a href={link.path}>{link.display}</a>
+                                    <a onClick={() => {
+                                        if (!!link.component)
+                                            props.onTabSelected(link)
+                                    }}>{link.display}</a>
                                 </li>
                             ))}
                         </ul>
                     ) : null}
                 </div>
-            ))};
-        </nav>
+            ))
+            };
+        </nav >
     );
 }
 

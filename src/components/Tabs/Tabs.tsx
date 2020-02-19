@@ -6,12 +6,15 @@ interface FullTab extends Tab {
 }
 
 export interface Tab {
+    key: string;
     name: string;
     component: JSX.Element;
+    active?: boolean;
 }
 
 export interface TabsProps {
     tabs: Tab[];
+    onTabClosed: (tabs: Tab[]) => void;
 }
 
 const Tabs: React.FC<TabsProps> = (props) => {
@@ -20,14 +23,12 @@ const Tabs: React.FC<TabsProps> = (props) => {
 
     useEffect(() => {
         if (!!props.tabs && props.tabs.length > 0) {
-            const activeIndex = props.tabs.length - 1;
             let newTabs = [...props.tabs] as FullTab[];
 
-            newTabs.forEach(t => t.active = false);
-            newTabs[activeIndex].active = true;
+            const activeTab = newTabs.find(t => !!t.active);
 
             setTabs(newTabs);
-            setActive(newTabs[activeIndex].component);
+            setActive(activeTab!.component);
         } else {
             setTabs([]);
             setActive(<></>);
@@ -61,9 +62,10 @@ const Tabs: React.FC<TabsProps> = (props) => {
                 setActive(newActiveTab.component);
             } else if (newTabs.length === 0) {
                 setActive(<></>);
-             }
+            }
 
             setTabs(newTabs);
+            props.onTabClosed(newTabs as Tab[]);
         }
     }
 

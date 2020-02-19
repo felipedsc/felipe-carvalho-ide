@@ -1,21 +1,19 @@
 import React from 'react';
-import Competencias from '../Competencias';
-import Sobre from '../Sobre';
 import Tabs from '../Tabs';
 import { Tab } from '../Tabs/Tabs';
 import styles from './Main.module.css';
 
-const Main: React.FC = () => {
-    const tabs: Tab[] = [
-        { name: 'Sobre', component: <Sobre /> },
-        { name: 'Sobre', component: <Sobre /> },
-        { name: 'Sobre', component: <Sobre /> },
-        { name: 'Competências', component: <Competencias /> }
-    ];
+interface MainProps {
+    tabs: Tab[];
+    onTabClosed: (tabs: Tab[]) => void;
+}
+
+const Main: React.FC<MainProps> = (props) => {
+    const { tabs } = props;
 
     return (
         <div className={styles.main}>
-            <Tabs tabs={tabs} />
+            <Tabs tabs={tabs} onTabClosed={props.onTabClosed} />
         </div>
     )
 }
